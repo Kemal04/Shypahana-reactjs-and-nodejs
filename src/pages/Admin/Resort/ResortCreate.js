@@ -21,7 +21,7 @@ function ResortCreate() {
         e.preventDefault()
 
         try {
-            await axios.post("http://localhost:8800/resorts/", resort)
+            await axios.post("http://localhost:3001/resorts/", resort)
             navigate("/shypahanalar")
         } catch (err) {
             console.log(err)

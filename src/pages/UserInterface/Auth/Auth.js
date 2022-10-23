@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import "../../assets/Register.css"
+import "../../../assets/Register.css"
 
 const Auth = () => {
 
@@ -41,7 +41,7 @@ const Auth = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:8800/register/", {
+        axios.post("http://localhost:3001/register/", {
             name: nameReg,
             email: emailReg,
             password: passwordReg,
@@ -55,7 +55,7 @@ const Auth = () => {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:8800/login/", {
+        axios.post("http://localhost:3001/login/", {
             email: email,
             password: password,
         }).then((response) => {
@@ -70,7 +70,7 @@ const Auth = () => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8800/login/").then((response) => {
+        axios.get("http://localhost:8800/login").then((response) => {
             if (response.data.loggedIn == true) {
                 navigate("/")
             }

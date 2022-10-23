@@ -1,0 +1,32 @@
+{
+  "resorts": [
+    {
+      "id": 1,
+      "name": "The Flash",
+      "address": "This is a wider card with supporting text below as a natural lead-in to additional content.",
+      "phoneNumber": 63297877,
+      "img": "https://image.tmdb.org/t/p/w220_and_h330_face/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg"
+    },
+    {
+      "name": "Kemal",
+      "address": "Kemal",
+      "phoneNumber": "12934871",
+      "img": "dsgasdgsadgasdgasd",
+      "id": 2
+    }
+  ],
+  "register": [
+    {
+      "id": 1,
+      "name": "Kemal",
+      "email": "kemal@gmail.com",
+      "password": 63297877
+    },
+    {
+      "name": "Yunus",
+      "email": "yunus@gmail.com",
+      "password": "12345",
+      "id": 2
+    }
+  ]
+}
