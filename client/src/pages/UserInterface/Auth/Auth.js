@@ -5,7 +5,7 @@ import "../../../assets/Register.css"
 
 const Auth = () => {
 
-
+    //Gecis Effekti
     const [swapPanel, setSwapPanel] = useState(false);
 
     const signUpButton = () => {
@@ -14,7 +14,9 @@ const Auth = () => {
     const signInButton = () => {
         setSwapPanel(false);
     };
+    //Gecis Effekti
 
+    //Error verince gelip giden card
     const [show, setShow] = useState(true)
 
     useEffect(() => {
@@ -26,6 +28,7 @@ const Auth = () => {
             clearTimeout(timeId)
         }
     }, []);
+    //Error verince gelip giden card
 
     const navigate = useNavigate();
 
@@ -41,7 +44,7 @@ const Auth = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/register/", {
+        axios.post("http://localhost:3001/auth/", {
             name: nameReg,
             email: emailReg,
             password: passwordReg,
@@ -49,8 +52,6 @@ const Auth = () => {
             navigate("/")
         })
     }
-
-    axios.defaults.withCredentials = true
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -68,14 +69,6 @@ const Auth = () => {
 
         })
     }
-
-    useEffect(() => {
-        axios.get("http://localhost:8800/login").then((response) => {
-            if (response.data.loggedIn == true) {
-                navigate("/")
-            }
-        })
-    }, [])
 
     return (
         <div className='mt-5 pt-3 d-flex justify-content-center'>

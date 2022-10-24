@@ -3,19 +3,25 @@
     {
       "id": 1,
       "name": "The Flash",
-      "address": "This is a wider card with supporting text below as a natural lead-in to additional content.",
+      "address": "This is a wider card with",
       "phoneNumber": 63297877,
-      "img": "https://image.tmdb.org/t/p/w220_and_h330_face/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg"
+      "img": "https://image.tmdb.org/t/p/w220_and_h330_face/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg",
+      "email": "bagabat@gmail.com",
+      "liked": null,
+      "viwed": null
     },
     {
       "name": "Kemal",
       "address": "Kemal",
       "phoneNumber": "12934871",
       "img": "dsgasdgsadgasdgasd",
-      "id": 2
+      "id": 2,
+      "email": "arcman@gmail.com",
+      "liked": null,
+      "viwed": null
     }
   ],
-  "register": [
+  "auth": [
     {
       "id": 1,
       "name": "Kemal",
@@ -27,6 +33,9 @@
       "email": "yunus@gmail.com",
       "password": "12345",
       "id": 2
+    },
+    {
+      "id": 3
     }
   ]
 }

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import '../assets/Home.css'
-import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBed, faMapMarkedAlt, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
 function Home() {
 
     const [resorts, setResorts] = useState([])
+
+    const [nameSearch, setNameSearch] = useState("")
+    const [starSearch, setStarSearch] = useState("")
+    const [addresSearch, setAddressSearch] = useState("")
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchAllResorts = async () => {
@@ -37,6 +43,10 @@ function Home() {
         }
     };
 
+    const handleSearch = () => {
+        navigate("/shypahanalar", { state: { nameSearch, starSearch, addresSearch } })
+    }
+
     return (
         <div>
             <div className='bg-img'>
@@ -47,6 +57,25 @@ function Home() {
                         </div>
                         <div className='col-lg-12 h3 fw-normal mt-3'>
                             Şypahanalar bilen dynç alyň hem-de syýahat ediň !
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='container bg-light py-5 px-5 shadow' style={{ marginTop: "-50px" }}>
+                <div className='row justify-content-between align-items-center'>
+                    <div className='col-lg-4 d-flex align-items-center'>
+                        <FontAwesomeIcon icon={faBed} className="text-secondary me-2" /><input onChange={(e) => setNameSearch(e.target.value)} placeholder='Şypahana gözle...' type="text" className="form-control rounded-0 border-0 me-3" />
+                    </div>
+                    <div className='col-lg-3 d-flex align-items-center'>
+                        <FontAwesomeIcon icon={faStar} className="text-secondary me-2" /><input onChange={(e) => setStarSearch(e.target.value)} placeholder='Ýyldyz sany' type="text" className="form-control rounded-0 border-0 me-3" />
+                    </div>
+                    <div className='col-lg-3 d-flex align-items-center'>
+                        <FontAwesomeIcon icon={faMapMarkedAlt} className="text-secondary me-2" /><input onChange={(e) => setAddressSearch(e.target.value)} placeholder='Ýerleşýän ýeri' type="text" className="form-control rounded-0 border-0 me-3" />
+                    </div>
+                    <div className='col-lg-2'>
+                        <div className='d-grid'>
+                            <button className='btn btn-green' onClick={handleSearch}>Gözle</button>
                         </div>
                     </div>
                 </div>
