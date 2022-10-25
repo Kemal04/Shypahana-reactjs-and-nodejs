@@ -44,7 +44,7 @@ const Auth = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/auth/", {
+        axios.post("http://localhost:3001/auth/register", {
             name: nameReg,
             email: emailReg,
             password: passwordReg,
@@ -56,14 +56,15 @@ const Auth = () => {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3001/login/", {
+        axios.post("http://localhost:3001/auth/login/", {
             email: email,
             password: password,
         }).then((response) => {
 
-            if (response.data.message) {
-                setLoginStatus(response.data.message)
+            if (response.data.error) {
+                setLoginStatus(response.data.error)
             } else {
+                sessionStorage.setItem("accessToken", response.data)
                 navigate("/")
             }
 
