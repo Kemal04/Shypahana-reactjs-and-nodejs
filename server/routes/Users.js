@@ -5,7 +5,7 @@ const {Users} = require('../models');
 const bcrypt = require("bcrypt");
 
 
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
     const {name, email, password} = req.body;
     bcrypt.hash(password, 10).then((hash) => {
         Users.create({
@@ -18,20 +18,18 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    const {name, email, password} = req.body;
-
-    const user = await Users.findOne({where: {name: name} });
-
+    const {email, password} = req.body;
+    const user = await Users.findOne({where: {email: email} });
+    
     if (!user) res.json ({error: "beyle Ulanyjy yok"});
 
     bcrypt.compare(password, user.password).then((match) => {
         if(!match) res.json ({error: "ulanyjy ady bn parol yalnys"});
-    
-        res.json("Sizin giris etdiniz!!!");
+
+        res.json("Siz giris etdiniz!!!");
     });
 });
 
 
 
 module.exports = router;
-
