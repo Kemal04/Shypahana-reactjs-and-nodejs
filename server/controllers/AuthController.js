@@ -3,6 +3,14 @@ const { Users } = require("../models/models");
 const bcrypt = require('bcrypt');
 const { sign } = require("jsonwebtoken");
 
+exports.get_users = async (req, res) => {
+    const users = await Users.findAll();
+    res.json({
+        users: users,
+        action: req.query.action
+    });
+}
+
 exports.post_register = async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;

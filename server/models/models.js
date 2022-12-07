@@ -62,7 +62,7 @@ const Rooms = sequelize.define("rooms", {
     },
 });
 
-const Booking = sequelize.define("booking", {
+const RoomBooking = sequelize.define("roomBooking", {
     checkIn: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -81,15 +81,21 @@ const Booking = sequelize.define("booking", {
     }
 });
 
+
+const RoomGuestBooking = sequelize.define('RoomGuestBooking', {}, { timestamps: false });
+
 Resorts.hasMany(Rooms, { onDelete: "cascade" });
 Rooms.belongsTo(Resorts)
 
-Movie.belongsToMany(Actor, { through: ActorMovies });
-Actor.belongsToMany(Movie, { through: ActorMovies });
+Rooms.hasMany(RoomBooking, { onDelete: "cascade" });
+RoomBooking.belongsTo(Rooms);
+
+Users.belongsToMany(Rooms, { through: 'RoomGuestBooking' });
+Rooms.belongsToMany(Users, { through: 'RoomGuestBooking' });
 
 module.exports = {
     Users,
     Resorts,
     Rooms,
-    Booking,
+    RoomBooking,
 };

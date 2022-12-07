@@ -12,7 +12,6 @@ const UserBookingRooms = () => {
     const { authState } = useContext(AuthContext);
 
     const [booking, setBooking] = useState([]);
-    const [room, setRoom] = useState([]);
 
     useEffect(() => {
         axios.get(`http://localhost:3002/auth/basicinfo/${id}`).then((response) => {
@@ -30,19 +29,6 @@ const UserBookingRooms = () => {
             }
         }
         fetchBooking()
-    }, [id])
-
-
-    useEffect(() => {
-        const fetchRoom = async () => {
-            try {
-                const res = await axios.get("http://localhost:3002/bookings?roomId=" + id)
-                setBooking(res.data.booking)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchRoom()
     }, [id])
 
     return (
@@ -72,7 +58,7 @@ const UserBookingRooms = () => {
                         <div className="col-lg-8 col-md-8 text-danger">
                             Bronlar{
                                 booking.map(booking => (
-                                    <div key={booking.id}>{booking.roomId}</div>
+                                    <div key={booking.id}>{booking.room.name}</div>
                                 ))
                             }
                         </div>

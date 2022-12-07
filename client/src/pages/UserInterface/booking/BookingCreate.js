@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,7 +18,6 @@ const BookingCreate = ({ authState }) => {
     const [endDate, setEndDate] = useState(new Date());
 
     const [booking, setBooking] = useState({
-        userId: authState.id,
         roomId: roomId,
         checkIn: startDate,
         checkOut: endDate,
@@ -40,9 +39,9 @@ const BookingCreate = ({ authState }) => {
             .then((resp) => {
                 setRoom(resp)
             })
-    }, [])
+    }, [roomId])
 
-    
+
     const bookingRoom = async (e) => {
         e.preventDefault()
 

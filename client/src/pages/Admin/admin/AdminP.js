@@ -9,7 +9,19 @@ import './Admin.css'
 
 const AdminP = () => {
 
+    const [users, setUsers] = useState([])
 
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const res = await axios.get('http://localhost:3002/auth')
+                setUsers(res.data.users)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchRooms()
+    }, [])
 
     const [resorts, setResorts] = useState([])
 
@@ -17,7 +29,7 @@ const AdminP = () => {
         const fetchResorts = async () => {
             try {
                 const res = await axios.get('http://localhost:3002/resorts/')
-                setResorts(res.data)
+                setResorts(res.data.resorts)
             } catch (err) {
                 console.log(err)
             }
@@ -25,14 +37,13 @@ const AdminP = () => {
         fetchResorts()
     }, [])
 
-
     const [rooms, setRooms] = useState([])
 
     useEffect(() => {
         const fetchRooms = async () => {
             try {
                 const res = await axios.get('http://localhost:3002/rooms/')
-                setRooms(res.data)
+                setRooms(res.data.rooms)
             } catch (err) {
                 console.log(err)
             }
@@ -48,7 +59,7 @@ const AdminP = () => {
                     <div className='col-lg-3'>
                         <div className="row bg-warning p-3 align-items-center mx-3 rounded-3 shadow">
                             <div className="col-lg-8">
-                                <h3 className='mb-3'></h3>
+                                <h3 className='mb-3'>{users.length}</h3>
                                 <p>Ulanyjy sany</p>
                             </div>
                             <div className="col-lg-4 h1">

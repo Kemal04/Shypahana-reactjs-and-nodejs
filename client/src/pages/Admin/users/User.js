@@ -1,10 +1,27 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const User = () => {
+
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const res = await axios.get('http://localhost:3002/auth')
+                setUsers(res.data.users)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchRooms()
+    }, [])
+
+
     return (
         <div className='admin'>
             <div className='container py-5'>
@@ -24,7 +41,17 @@ const User = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
+                                {
+                                    users.map(user => (
+                                        <tr>
+                                            <td>{user.id}</td>
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td>************</td>
+                                        </tr>
+                                ))
+                                }
                             </tbody>
                         </table>
                     </div>
