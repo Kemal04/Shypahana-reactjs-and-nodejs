@@ -1,18 +1,24 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 const cors = require("cors");
-const db = require("./models");
+
+const port = 3002;
+
+//routes
+const BookingController = require("./routes/Booking");
+const RoomController = require("./routes/Room");
+const ResortController = require("./routes/Resort");
+const authController = require("./routes/Auth");
 
 app.use(express.json());
 app.use(cors());
 
-const usersRouter = require("./routes/Users.js");
-app.use("/auth", usersRouter);
+app.use("/", BookingController);
+app.use("/", RoomController);
+app.use("/", ResortController);
+app.use("/auth", authController);
 
-db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
-        console.log("running 3001 port");
-    });
-});
-
-
+//serv
+app.listen(port, () => {
+    console.log(`Server listing on port ${port}`)
+})

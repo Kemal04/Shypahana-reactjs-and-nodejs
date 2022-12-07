@@ -1,0 +1,102 @@
+.bg-img {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../public/img/banner/banner.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.banner-text {
+    font-family: 'Edward', sans-serif !important;
+    color: #50957a !important;
+}
+
+.text-green {
+    color: #50957a !important;
+}
+
+
+.bg-green {
+    background-color: #50957a !important;
+}
+
+.btn-outline-green {
+    background-color: transparent !important;
+    color: #fff !important;
+    border: 1px solid #fff !important;
+    border-radius: 0 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    padding: 12px 20px !important;
+}
+
+.btn-outline-green:hover {
+    background-color: #50957a !important;
+    color: #fff;
+    border: 1px solid #50957a !important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)
+}
+
+.btn-green {
+    background-color: #50957a !important;
+    color: #fff !important;
+    border: 1px solid #50957a !important;
+    border-radius: 0 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    padding: 12px 20px !important;
+}
+
+.btn-green:hover {
+    background-color: #fff !important;
+    color: #50957a !important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)
+}
+
+.btn-green-not-hover:hover {
+    background-color: #50957a !important;
+    color: #fff !important;
+}
+
+.product-li {
+    font-size: 16px;
+    color: rgb(77, 77, 77);
+    line-height: 28px;
+    list-style-type: circle;
+}
+
+.home-bg-fixed {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../public/img/banner/banner.jpg');
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.opacity-08 {
+    opacity: 0.9;
+}
+
+.contact-bg-fixed {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../public/img/banner/banner.jpg');
+    height: 650px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.bg-img-small {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../../public/img/banner/banner.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+}
