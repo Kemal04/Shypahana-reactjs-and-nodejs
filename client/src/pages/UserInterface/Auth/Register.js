@@ -35,15 +35,15 @@ const Register = () => {
             toast.error("Açar sözüňiz 8-den uly bolmaly")
         }
         else {
-            const response = await axios.post("http://localhost:3002/auth/register",{
+            await axios.post("http://localhost:3002/auth/register",{
                 name: name,
                 email: email,
                 password: password,
-            }).then((response) => {
+            }).then((res) => {
                 navigate("/")
-                toast.success(response.data)
-            }).catch((response)=>{
-                toast.error(response.data.error)
+                toast.success(res.data)
+            }).catch((res)=>{
+                toast.error(res.data.error)
             })  
         }
     }

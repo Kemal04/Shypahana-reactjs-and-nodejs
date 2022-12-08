@@ -44,7 +44,7 @@ const RoomRead = ({ authState }) => {
             .then((resp) => {
                 setRoom(resp)
             })
-    }, [])
+    }, [roomId])
 
 
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 import './Home.css'
-import { faBed, faMapMarkedAlt, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 

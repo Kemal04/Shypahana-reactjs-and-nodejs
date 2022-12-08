@@ -1,4 +1,4 @@
-import { faArrowRight, faBook, faCommentAlt, faEye, faHeart, faHotel, faNewspaper, faPencil, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faCommentAlt, faEye, faHeart, faHotel, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'

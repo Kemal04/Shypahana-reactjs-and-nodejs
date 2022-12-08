@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 //Components
 import { Navbar, Footer, AdminNavbar, Sidebar } from "./components"
 //UserInterface Pages
-import { About, Contact, Gallery, Home, Resort, ResortRead, Room, RoomRead, Register, Login, BookingCreate, UserProfile, UserBookingRooms } from "./pages/userInterface"
+import { About, Contact, Gallery, Home, Resort, ResortRead, Room, RoomRead, Register, Login, UserProfile, UserBookingRooms } from "./pages/userInterface"
 //Admin Pages
 import { AdminP, ResortCreate, ResortUpdate, AResort, ARoom, RoomCreate, RoomUpdate, AContact, ContactUpdate, User, ABooking } from "./pages/admin"
 //Toast Container
@@ -40,7 +40,7 @@ const App = () => {
                     });
                 }
             });
-    }, []);
+    }, [authState]);
 
 
     return (
@@ -65,8 +65,6 @@ const App = () => {
 
                             <Route path='/gallery' element={<Gallery />}></Route>
                             <Route path='/contact' element={<Contact />}></Route>
-
-                            <Route path='/otag-bronlamak/:id/' element={<BookingCreate authState={authState} />}></Route>
                         </Route>
 
                         <Route path="/" element={<AdminWithNavbar />}>

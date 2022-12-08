@@ -25,21 +25,21 @@ const Login = () => {
             toast.error("Açar sözüňiz 8-den uly bolmaly")
         }
         else {
-            const response = await axios.post("http://localhost:3002/auth/login", {
+            await axios.post("http://localhost:3002/auth/login", {
                 email: email,
                 password: password,
-            }).then((response) => {
-                if (response.data.error) {
-                    toast.error(response.data.error)
+            }).then((res) => {
+                if (res.data.error) {
+                    toast.error(res.data.error)
                 } else {
-                    localStorage.setItem("accessToken", response.data.token)
+                    localStorage.setItem("accessToken", res.data.token)
                     setAuthState({
-                        email: response.data.email,
-                        id: response.data.id,
+                        email: res.data.email,
+                        id: res.data.id,
                         status: true,
                     });
                     navigate("/")
-                    toast.success(response.data.success)
+                    toast.success(res.data.success)
                     window.location.reload()
                 }
 

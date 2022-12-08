@@ -23,17 +23,17 @@ function Contact() {
         }
     };
 
-    const [comment, setComment] = useState({
+    const [contact, setContact] = useState({
         name: "",
         email: "",
         subject: "",
         comment: "",
     })
 
-    const [comments, setComments] = useState([])
+    const [contacts, setContacts] = useState([])
 
     const handleChange = (e) => {
-        setComment((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+        setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
     const navigate = useNavigate()
@@ -41,25 +41,25 @@ function Contact() {
     const handleClick = async (e) => {
         e.preventDefault()
 
-        if (!comment.name) {
+        if (!contact.name) {
             toast.error("Adyňyzy ýazyň")
         }
-        else if (!comment.email) {
+        else if (!contact.email) {
             toast.error("E-mail adresiňizi ýazyň")
         }
-        else if (!comment.subject) {
+        else if (!contact.subject) {
             toast.error("Temaňyzy ýazyň")
         }
-        else if (!comment.comment) {
+        else if (!contact.comment) {
             toast.error("Teswiriňizi ýazyň")
         }
-        else if (comment.comment.length < 25) {
+        else if (contact.comment.length < 25) {
             toast.error("Teswiriňizi 50 harpdan ybarat bolmaly")
         }
         else {
-            await axios.post("http://localhost:3001/comments/", comment)
-                .then((response) => {
-                    toast.success("Teswiriňiz bize gowşuryldy")
+            await axios.post("http://localhost:3002/contact/create", contact)
+                .then((res) => {
+                    toast.success(res.data.success)
                     navigate("/")
                 }).catch((error) => {
                     toast.error(error.message)
@@ -70,8 +70,8 @@ function Contact() {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/comments/')
-                setComments(res.data)
+                const res = await axios.get('http://localhost:3002/contacts/')
+                setContacts(res.data.contacts)
             } catch (err) {
                 console.log(err)
             }
@@ -183,20 +183,20 @@ function Contact() {
                 </div>
                 <Splide options={options} hasTrack={false}>
                     <SplideTrack>
-                        {comments.map(comment => (
-                            <SplideSlide key={comment.id}>
+                        {contacts.map(contact => (
+                            <SplideSlide key={contact.id}>
                                 <div className="card bg-white mx-4">
                                     <div className="card-header text-muted border-bottom-0 py-3 d-flex justify-content-between">
-                                        <div><FontAwesomeIcon icon={faUserAlt} /> {comment.name} </div>
+                                        <div><FontAwesomeIcon icon={faUserAlt} /> {contact.name} </div>
                                     </div>
                                     <div className="card-body py-4">
                                         <div className="row">
                                             <div className="col-7">
                                                 <p className="text-muted text-sm mb-3">
-                                                    <b>Temasy :</b> {comment.subject}
+                                                    <b>Temasy :</b> {contact.subject}
                                                 </p>
                                                 <p className="text-muted text-sm mb-3">
-                                                    <b>Teswiri :</b> {comment.comment}
+                                                    <b>Teswiri :</b> {contact.comment}
                                                 </p>
                                             </div>
                                             <div className="col-5 text-center">
@@ -207,7 +207,7 @@ function Contact() {
                                     <div className="card-footer">
                                         <div className="text-right">
                                             <div className="btn btn-sm bg-teal">
-                                                <div><FontAwesomeIcon icon={faEnvelope} /> {comment.email} </div>
+                                                <div><FontAwesomeIcon icon={faEnvelope} /> {contact.email} </div>
                                             </div>
                                         </div>
                                     </div>
