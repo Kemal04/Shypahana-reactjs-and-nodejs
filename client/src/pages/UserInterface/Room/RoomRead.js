@@ -2,14 +2,38 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { toast } from 'react-toastify';
 
 const RoomRead = ({ authState }) => {
 
     const location = useLocation();
     const roomId = location.pathname.split("/")[2];
+
+    const navigate = useNavigate()
+
     const [room, setRoom] = useState("");
+
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
+    const [booking, setBooking] = useState({
+        userId: authState.id,
+        roomId: roomId,
+        checkIn: startDate,
+        checkOut: endDate,
+        phoneNumber: "",
+        mark: "",
+    });
+
+
+    const handleChange = (e) => {
+        setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
 
     //ROOMS
     useEffect(() => {
@@ -23,6 +47,30 @@ const RoomRead = ({ authState }) => {
     }, [])
 
 
+
+    const bookingRoom = async (e) => {
+        e.preventDefault()
+
+        if (!startDate) {
+            toast.error("Giriş wagtyny ýazyň")
+        }
+        else if (!endDate) {
+            toast.error("Çykyş wagtyny ýazyň")
+        }
+        else if (!booking.phoneNumber) {
+            toast.error("Telefon belgiňizi ýazyň")
+        }
+        else {
+            await axios.post("http://localhost:3002/booking/create", booking)
+                .then((res) => {
+                    toast.success(res.data.success)
+                    navigate("/")
+                }).catch((error) => {
+                    toast.error(error.message)
+                });
+        }
+    }
+
     return (
         <>
             <div className='bg-img-small'>
@@ -35,7 +83,7 @@ const RoomRead = ({ authState }) => {
                 </div>
             </div>
             <div className='container py-5 my-5'>
-                <div className='row justify-content-between align-items-center'>
+                <div className='row justify-content-between align-items-start'>
                     <div className='col-lg-8'>
                         <div className='text-center'>
                             <img src={room.img} className="img-fluid" alt={room.name} />
@@ -43,38 +91,124 @@ const RoomRead = ({ authState }) => {
                         <div className='d-flex justify-content-between mt-5 align-items-center'>
                             <div className='h3'>№ {room.name} Otag</div>
                             <div className='d-flex justify-content-end align-items-center'>
-                                <div><FontAwesomeIcon icon={faHeart} /> {room.liked}</div>
-                                {
-                                    !authState.status
-                                        ?
-                                        <Link to="/login" className='btn btn-sm btn-green ms-5 text-uppercase'>Bronlamak</Link>
-                                        :
-                                        <Link to={`/otag-bronlamak/${room.id}`} className='btn btn-sm btn-green ms-5 text-uppercase'>Bronlamak</Link>
-                                }
+                                <div><FontAwesomeIcon icon={faHeart} className="h3" /> {room.liked}</div>
                             </div>
                         </div>
                         <div className="text-green mt-4">
                             <span className='h3'>{room.price}<sup>TMT</sup></span>
                             <span className='h6 small' style={{ fontWeight: "500", color: "#afb4bf" }}> / Günlük</span>
                         </div>
-                        <div className='row align-items-center'>
-                            <div className='my-3 col-lg-2'>
-                                <div className='my-4' style={{ color: "#afb4bf", fontWeight: "500" }}>Meýdany: </div>
-                                <div className='my-4' style={{ color: "#afb4bf", fontWeight: "500" }}>Adam sany: </div>
-                                <div className='my-4' style={{ color: "#afb4bf", fontWeight: "500" }}>Görüldi: </div>
-                                <div className='my-4' style={{ color: "#afb4bf", fontWeight: "500" }}>Hyzmatlary: </div>
+                        <div className='row g-0 align-items-center my-5'>
+                            <div className='col-lg-3'>
+                                <div className='card rounded-0 text-center py-4'>
+                                    <div className='text-secondary fw-bold mb-2' style={{ letterSpacing: "0.6px" }}>
+                                        Meýdany :
+                                    </div>
+                                    <div className='fw-bold'>
+                                        {room.size} m<sup>2</sup>
+                                    </div>
+                                </div>
                             </div>
-                            <div className='my-3 col-lg-2'>
-                                <div className='my-4'><b>{room.size}</b> ft</div>
-                                <div className='my-4'>Iň köp <b>{room.capacity}</b> adamlyk</div>
-                                <div className='my-4'><b>{room.viwed}</b> adam gördi</div>
-                                <div className='my-4'>...</div>
+                            <div className='col-lg-3'>
+                                <div className='card rounded-0 text-center py-4'>
+                                    <div className='text-secondary fw-bold mb-2' style={{ letterSpacing: "0.6px" }}>
+                                        Adam sany :
+                                    </div>
+                                    <div className='fw-bold'>
+                                        {room.capacity} adam
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-lg-3'>
+                                <div className='card rounded-0 text-center py-4'>
+                                    <div className='text-secondary fw-bold mb-2' style={{ letterSpacing: "0.6px" }}>
+                                        Görüldi :
+                                    </div>
+                                    <div className='fw-bold'>
+                                        {room.viwed} adam gördi
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-lg-3'>
+                                <div className='card rounded-0 text-center py-4'>
+                                    <div className='text-secondary fw-bold mb-2' style={{ letterSpacing: "0.6px" }}>
+                                        Hyzmatlary :
+                                    </div>
+                                    <div className='fw-bold'>
+                                        Masajlar, Tok masaj ...
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className='my-3'>
-                            Motorhome or Trailer that is the question for you. Here are some of the advantages and disadvantages of both, so you will be confident when purchasing an RV. When comparing Rvs, a motorhome or a travel trailer, should you buy a motorhome or fifth wheeler? The advantages and disadvantages of both are studied so that you can make your choice wisely when purchasing an RV. Possessing a motorhome or fifth wheel is an achievement of a lifetime. It can be similar to sojourning with your residence as you search the various sites of our great land, America.
-                            <br /><br /><br />
-                            The two commonly known recreational vehicle classes are the motorized and towable. Towable rvs are the travel trailers and the fifth wheel. The rv travel trailer or fifth wheel has the attraction of getting towed by a pickup or a car, thus giving the adaptability of possessing transportation for you when you are parked at your campsite.
+                        <div className='my-3 h6 fw-normal' style={{ lineHeight: "25px", color: "#636a76", wordSpacing: "3px" }}>
+                            Arçmanyň şypaly suwy himiki düzümi boýunça kükürtli-hlorly-gidrokarbonatly, natrili-kalsili-magnili, gowşak aşgarlanan suwlar toparyna degişlidir. Şypaly suwy içmek, suwa düşmek, içegeleri ýuwmak arkaly bejerginiň dürli usullary ulanylýar. Ol beden agzalarynyň işjeňligini kadalaşdyrýar. Şypahanada aşgazan-içege, bagyr, öt çykaryş ýollarynyň, daýanç-hereket synalarynyň, periferiki nerw ulgamlarynyň, deri we ginekologiki keseller bejerilýär. <br /><br /> Esasan-da gyzylödegiň dowamly gaýnaglamasy, dowamly aşgazan keselleri (gastritler), öt haltanyň we öt ýollarynyň keselleri, olaryň diskineziýalary, gepatitler, kolitler, enterekolitler, babasiliň daşky we içki görnüşleri, aşgazanyň we on iki barmak içegäniň başly ýarasy ýiti däl döwri, ýüregiň işjeňliginiň bozulmagy (ýürek newrozlary), öte geçmedik ateroskleroz keseli, birinji derejeli gipertoniýa (ýüregiň we beýni ganaýlanyşynyň bozulmalarynyň alamatlary ýok bolan ýagdaýynda), döreýşi dürli bolan (inçekeselden başgasy) dowamly guragyrylar. <br /><br /> Bogunlaryň keselleri (çişi bolmadyk wagtynda), madda alyş-çalşygynyň bozulmagy zerarly dörän oňurga we bogunagyrylary (artritler), oňurgalara we bogunlara duz ýygnanma keseli (osteoartroz), gaýtalap duran çakyza, kükrek we oňurgalaryň radikulidi, nerw ulgamynyň dowamly gaýnaglamasy, semizligiň ýeňil we orta derejesi, klimaks zerarly döreýän näsazlyklar, neýrodermit, dowamly iteşen, gyzylendigan demrew, psoreaz, parapsoreaz, ýatgy we onuň ösüntgileriniň dowamly keselleri, aýbaşynyň bozulmalary bejerilýär.
+                        </div>
+                    </div>
+                    <div className='col-lg-4'>
+                        <div className="row mt-5 pt-3">
+                            <div className="col-lg-12 col-md-8">
+                                <form id="order-form">
+                                    <div className="row">
+
+                                        <div className="col-sm-12 mb-4">
+                                            <div className="form-group">
+                                                <label className="fw-bold text-dark mb-2" style={{ letterSpacing: "0.7px" }}>
+                                                    Telefon belgiňiz
+                                                </label>
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text rounded-0">+993</span>
+                                                    </div>
+                                                    <input type="number" min="60000000" max="65999999" className="form-control" autoComplete='off' name="phoneNumber" required onChange={handleChange} />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='col-lg-12'>
+                                            <div className="row justify-content-between mb-3">
+                                                <div className='col-lg-6'>
+                                                    <label className="fw-bold text-dark mb-2" style={{ letterSpacing: "0.7px" }}>
+                                                        Giriş wagty
+                                                    </label>
+                                                    <DatePicker className="form-control rounded-0" name='checkIn' selected={startDate} onChange={(date) => setStartDate(date)} />
+                                                </div>
+                                                <div className='col-lg-6'>
+                                                    <label className="fw-bold text-dark mb-2" style={{ letterSpacing: "0.7px" }}>
+                                                        Çykyş wagty
+                                                    </label>
+                                                    <DatePicker className="form-control rounded-0" name='checkOut' selected={endDate} onChange={(date) => setEndDate(date)} />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-sm-12 mt-3">
+                                            <div className="form-group">
+                                                <label className="fw-bold text-dark mb-2" style={{ letterSpacing: "0.7px" }}>
+                                                    Bellikleriňiz
+                                                </label>
+                                                <textarea name="mark" className="form-control rounded-0" rows="5" onChange={handleChange}></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div className="col-lg-12 col-md-4 mt-4">
+                            {
+                                !authState.status
+                                    ?
+                                    <div className='d-grid'>
+                                        <Link to="/login" className="btn btn-lg btn-green btn-block text-white fw-bold">
+                                            Bronlamak
+                                        </Link>
+                                    </div>
+                                    :
+                                    <div className='d-grid'>
+                                        <button onClick={bookingRoom} type="submit" className="btn btn-lg btn-primary btn-block text-white fw-bold" id="buy-now">
+                                            Bronlamak
+                                        </button>
+                                    </div>
+                            }
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,11 @@
 const express = require("express");
-const { Rooms, RoomBooking } = require("../models/models")
+const { Rooms, RoomBooking, Users, RoomGuestBooking } = require("../models/models")
 
 exports.get_bookings = async (req, res) => {
-    const booking = await RoomBooking.findAll({ include: Rooms });
+
+    const id = req.query.userId
+
+    const booking = await RoomBooking.findAll({ include: Rooms, where:{userId:id} });
     res.json({
         booking: booking,
         action: req.query.action
@@ -15,6 +18,7 @@ exports.post_booking_create = async (req, res) => {
     const mark = req.body.mark;
     const phoneNumber = req.body.phoneNumber;
     const roomId = req.body.roomId;
+    const userId = req.body.userId;
 
     try {
         await RoomBooking.create({
@@ -23,6 +27,7 @@ exports.post_booking_create = async (req, res) => {
             mark: mark,
             phoneNumber: phoneNumber,
             roomId: roomId,
+            userId: userId,
         });
         res.json({ success: "Şypahana üstünlikli goşuldy" });
     }

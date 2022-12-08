@@ -18,6 +18,7 @@ const BookingCreate = ({ authState }) => {
     const [endDate, setEndDate] = useState(new Date());
 
     const [booking, setBooking] = useState({
+        userId: authState.id,
         roomId: roomId,
         checkIn: startDate,
         checkOut: endDate,

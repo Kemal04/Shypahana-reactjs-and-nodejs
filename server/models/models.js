@@ -87,8 +87,10 @@ const RoomGuestBooking = sequelize.define('RoomGuestBooking', {}, { timestamps: 
 Resorts.hasMany(Rooms, { onDelete: "cascade" });
 Rooms.belongsTo(Resorts)
 
-Rooms.hasMany(RoomBooking, { onDelete: "cascade" });
+Rooms.hasMany(RoomBooking);
 RoomBooking.belongsTo(Rooms);
+Users.hasMany(RoomBooking, { onDelete: "cascade" });
+RoomBooking.belongsTo(Users);   
 
 Users.belongsToMany(Rooms, { through: 'RoomGuestBooking' });
 Rooms.belongsToMany(Users, { through: 'RoomGuestBooking' });
@@ -98,4 +100,5 @@ module.exports = {
     Resorts,
     Rooms,
     RoomBooking,
+    RoomGuestBooking
 };
