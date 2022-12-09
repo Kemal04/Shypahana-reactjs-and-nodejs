@@ -51,6 +51,20 @@ const AdminP = () => {
         fetchRooms()
     }, [])
 
+    
+    const [contacts, setContacts] = useState([])
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const res = await axios.get('http://localhost:3002/contacts/')
+                setContacts(res.data.contacts)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchComments()
+    }, [])
 
     return (
         <div className='admin' style={{ height: "1200px" }}>
@@ -65,19 +79,19 @@ const AdminP = () => {
                             <div className="col-lg-4 h1">
                                 <FontAwesomeIcon icon={faUserAlt} />
                             </div>
-                            <Link to="/admin/" className="border-light border-top pt-2 nav-link text-dark pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
+                            <Link to="/admin/ulanyjylar" className="border-light border-top pt-2 nav-link text-dark pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
                         </div>
                     </div>
                     <div className='col-lg-3'>
                         <div className="row bg-danger text-white p-3 align-items-center mx-3 rounded-3 shadow">
                             <div className="col-lg-8">
-                                {/* <h3 className='mb-3'>{comments.length}</h3> */}
+                                <h3 className='mb-3'>{contacts.length}</h3>
                                 <p>Teswirleriň sany</p>
                             </div>
                             <div className="col-lg-4 h1">
                                 <FontAwesomeIcon icon={faEnvelope} />
                             </div>
-                            <Link to="/admin/" className="border-light border-top pt-2 nav-link text-white pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
+                            <Link to="/admin/teswirler" className="border-light border-top pt-2 nav-link text-white pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
                         </div>
                     </div>
                     <div className='col-lg-3'>
@@ -89,7 +103,7 @@ const AdminP = () => {
                             <div className="col-lg-4 h1">
                                 <FontAwesomeIcon icon={faHotel} />
                             </div>
-                            <Link to="/admin/" className="border-light border-top pt-2 nav-link text-white pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
+                            <Link to="/admin/shypahanalar" className="border-light border-top pt-2 nav-link text-white pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
                         </div>
                     </div>
                     <div className='col-lg-3'>
@@ -101,7 +115,7 @@ const AdminP = () => {
                             <div className="col-lg-4 h1">
                                 <FontAwesomeIcon icon={faBed} />
                             </div>
-                            <Link to="/admin/" className="border-light border-top pt-2 nav-link text-white pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
+                            <Link to="/admin/otaglar" className="border-light border-top pt-2 nav-link text-white pb-0">Maglumatlar <FontAwesomeIcon icon={faArrowRight} /></Link>
                         </div>
                     </div>
                 </div>
