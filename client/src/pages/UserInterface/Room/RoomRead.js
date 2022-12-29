@@ -29,11 +29,9 @@ const RoomRead = ({ authState }) => {
         mark: "",
     });
 
-
     const handleChange = (e) => {
         setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-
 
     //ROOMS
     useEffect(() => {
@@ -45,8 +43,6 @@ const RoomRead = ({ authState }) => {
                 setRoom(resp)
             })
     }, [roomId])
-
-
 
     const bookingRoom = async (e) => {
         e.preventDefault()
@@ -71,6 +67,19 @@ const RoomRead = ({ authState }) => {
         }
     }
 
+
+    const [likes, setLikes] = useState(100);
+    const [isClicked, setIsClicked] = useState(false);
+
+    const handleClick = () => {
+        if (isClicked) {
+            setLikes(likes - 1);
+        } else {
+            setLikes(likes + 1);
+        }
+        setIsClicked(!isClicked);
+    };
+
     return (
         <>
             <div className='bg-img-small'>
@@ -91,7 +100,11 @@ const RoomRead = ({ authState }) => {
                         <div className='d-flex justify-content-between mt-5 align-items-center'>
                             <div className='h3'>№ {room.name} Otag</div>
                             <div className='d-flex justify-content-end align-items-center'>
-                                <div><FontAwesomeIcon icon={faHeart} className="h3" /> {room.liked}</div>
+                                <div>
+                                    <button className={`like-button ${isClicked && 'liked'}`} onClick={handleClick}>
+                                        <span className="likes-counter">{`Like | ${likes}`}</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="text-green mt-4">

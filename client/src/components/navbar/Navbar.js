@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './Navbar.css'
 import $ from 'jquery';
 import { NavLink } from 'react-router-dom'
@@ -56,8 +56,6 @@ function Navbar({ authState }) {
 }
 
 $(document).ready(function () {
-    "use strict";
-
     $(window).scroll(function () {
         if ($(this).scrollTop() > 0) {
             $('.navbar').addClass('nav-sticky');

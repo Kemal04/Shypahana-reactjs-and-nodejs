@@ -114,7 +114,7 @@ function Home() {
                                             </div>
                                             <div className='mb-3 text-center h4'>. . .</div>
                                             <div className="d-grid gap-2">
-                                                <button className="btn btn-green" type="button">Otaglaryny gör</button>
+                                                <Link to={`/otaglar`} className="btn btn-green" type="button">Otaglaryny gör</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -144,13 +144,12 @@ function Home() {
             </div>
 
             <div className='py-5'>
-                <div className="container my-5 py-5">
+                <div className="container my-5 py-5 text-center">
                     <div className="mb-5 text-center" data-aos="fade-up">
                         <span className="mb-4 d-block text-green fw-bold text-uppercase smal">Täzelenme</span>
                         <h2 className="mb-4 fw-bold">Şypahanalary 360<sup>o</sup> aýlan</h2>
                     </div>
-
-                    
+                    <img src="/img/banner/360.jpg" className='img-fluid' alt=''/>
                 </div>
             </div>
 
